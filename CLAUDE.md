@@ -39,43 +39,36 @@ src/
 └── index.css         # Global styles + CSS variables
 ```
 
-## Key Pages
+## Routes
 
-| Page | File | Purpose |
-|------|------|---------|
-| Dashboard | `Index.tsx` | KPIs, call chart, active calls |
-| Live Calls | `LiveCalls.tsx` | Real-time call monitoring |
-| Call History | `CallHistory.tsx` | Last 30 days, transcripts |
-| Calendar | `Calendar.tsx` | Appointment view |
-| Customers | `Customers.tsx` | Customer database |
-| AI Config | `AIConfiguration.tsx` | Agent settings |
-| Analytics | `Analytics.tsx` | Charts + AI insights |
-| Settings | `Settings.tsx` | Account settings |
-| Login | `Login.tsx` | **FAKE** - no auth implemented |
+| Route | Page | Purpose |
+|-------|------|---------|
+| `/` | `Index.tsx` | Dashboard overview - KPIs, call chart, active calls |
+| `/live-calls` | `LiveCalls.tsx` | Real-time call monitoring |
+| `/call-history` | `CallHistory.tsx` | Last 30 days of calls with transcripts |
+| `/calendar` | `Calendar.tsx` | Appointment calendar view |
+| `/customers` | `Customers.tsx` | Customer database |
+| `/ai-config` | `AIConfiguration.tsx` | Agent settings (UI only) |
+| `/analytics` | `Analytics.tsx` | Charts + AI insights |
+| `/alerts` | `Alerts.tsx` | Alert management |
+| `/settings` | `Settings.tsx` | Account settings |
 
-## Current State / Known Issues
+### Auth Pages (Not Active)
+These pages exist but are not linked from the dashboard. Kept for future use:
+- `/login` - Login page (no backend)
+- `/signup` - Signup page (no backend)
+- `/forgot-password` - Password recovery (no backend)
 
-### Fake Login Page
-The login page (`/`) is currently the landing page with all routes redirecting to it. **No actual authentication is implemented** - it's just a placeholder for demo purposes. The form doesn't submit anywhere.
+## Data Source
 
-To restore normal routing, edit `src/App.tsx` and uncomment the original routes.
+All call/conversation data comes from **ElevenLabs API**, not Supabase.
 
-### Routes Are All Disabled
-Currently in `App.tsx`:
-- All paths redirect to Login (`/`)
-- Original dashboard routes are commented out
+Agent ID: `agent_2101ke1rkdp6e0g9x1gyge1fmdns`
 
-### Data Source
-All call/conversation data comes from **ElevenLabs API**, not Supabase. The agent ID is hardcoded: `agent_2101ke1rkdp6e0g9x1gyge1fmdns`
-
-## API Integration
-
-### ElevenLabs (Primary)
 ```typescript
 // src/lib/elevenlabs.ts
-const AGENT_ID = 'agent_2101ke1rkdp6e0g9x1gyge1fmdns';
-fetchConversations()     // List all conversations
-fetchConversation(id)    // Get full transcript + details
+fetchConversations()        // List all conversations
+fetchConversation(id)       // Get full transcript + details
 getConversationAudioUrl(id) // Audio playback URL
 ```
 
@@ -135,6 +128,7 @@ import { cn } from "@/lib/utils";
 
 | File | What It Does |
 |------|--------------|
+| `src/App.tsx` | All route definitions |
 | `src/lib/elevenlabs.ts` | ElevenLabs API calls + types |
 | `src/lib/conversationUtils.ts` | Transform API data → UI format |
 | `src/hooks/useConversations.ts` | React Query hooks for calls data |
@@ -146,7 +140,7 @@ import { cn } from "@/lib/utils";
 
 1. Create component in `src/pages/NewPage.tsx`
 2. Add route in `src/App.tsx`
-3. Add nav item in `src/components/dashboard/Sidebar.tsx`
+3. Add nav item in `src/components/dashboard/Sidebar.tsx` (in the `navigation` array)
 
 ## Adding UI Components
 
@@ -155,15 +149,18 @@ shadcn/ui components are already installed. If you need a new one:
 npx shadcn-ui@latest add <component-name>
 ```
 
-## Notes for Demo
+## What's Real vs Mock Data
 
-- Call data is LIVE from ElevenLabs - requires API key
-- Customer data is mock/static
-- Calendar appointments are mock data
-- AI Configuration page is UI-only (doesn't save)
-- Analytics insights are pre-written, not AI-generated
+| Feature | Data Source |
+|---------|-------------|
+| Call data, transcripts | **LIVE** - ElevenLabs API |
+| Dashboard KPIs | **LIVE** - Calculated from ElevenLabs |
+| Customer list | Mock/static data |
+| Calendar appointments | Mock data |
+| AI Configuration | UI only (doesn't save) |
+| Analytics insights | Pre-written text |
 
 ## Don't Touch
 
 - `src/components/ui/*` - Auto-generated shadcn components
-- Supabase schema - Not actively used, may be removed
+- Supabase schema - Not actively used

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   Phone,
+  PhoneOutgoing,
   History,
   Settings2,
   BarChart3,
@@ -18,6 +19,7 @@ import { cn } from "@/lib/utils";
 const navigation = [
   { name: "Overview", href: "/", icon: LayoutDashboard },
   { name: "Live Calls", href: "/live-calls", icon: Phone },
+  { name: "Outbound Calls", href: "/outbound-calls", icon: PhoneOutgoing },
   { name: "Call History", href: "/call-history", icon: History },
   { name: "Calendar", href: "/calendar", icon: CalendarDays },
   { name: "Customers", href: "/customers", icon: Users },
@@ -51,21 +53,26 @@ export function Sidebar() {
         {/* Logo + Toggle */}
         <div className="flex h-14 items-center justify-between border-b border-sidebar-border px-3">
           {!isCollapsed ? (
-            <div className="flex items-center gap-2 overflow-hidden transition-all duration-300 opacity-100">
+            <div className="flex items-center gap-3 overflow-hidden transition-all duration-300 opacity-100">
               <img
-                src="/spkr-blue-trans.svg"
-                alt="SPKRR"
-                className="h-4 w-auto"
+                src="/speakrr icon blue copy.png"
+                alt="Speakrr"
+                className="h-6 w-auto"
+              />
+              <div className="h-5 w-px bg-border" />
+              <img
+                src="/client-logo.png"
+                alt="Client"
+                className="h-[2rem] w-auto"
               />
             </div>
           ) : (
             <div className="flex items-center justify-center w-full transition-all duration-300">
-              <svg className="h-4 w-4" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,15.19h8.58c-1.23-2.2-2.32-4.24-3.51-6.22-.53-.88-.57-1.57.01-2.46,1.14-1.74,2.08-3.6,3.23-5.33.31-.47,1.05-.92,1.6-.93,5.06-.07,10.12-.06,15.18-.02.47,0,1.15.19,1.36.52,1.41,2.24,2.72,4.53,4.2,7.03h-8.57c1.32,2.29,2.46,4.37,3.7,6.39.49.8.46,1.38-.03,2.15-1.11,1.76-2.14,3.57-3.12,5.4-.46.85-1,1.19-2.01,1.18-5-.07-10.01-.05-15.02-.1-.47,0-1.15-.17-1.36-.49-1.42-2.24-2.73-4.54-4.25-7.11ZM13.02,22.53c2.9-4.91,5.64-9.52,8.35-14.15.14-.24.22-.66.1-.87-1.23-2.26-2.5-4.5-3.84-6.88-.36.47-.58.7-.74.96-2.51,4.27-5.02,8.54-7.48,12.83-.19.34-.19.95-.01,1.3,1.1,2.18,2.28,4.32,3.62,6.81Z"
-                  fill="currentColor"
-                  className="text-primary"
-                />
-              </svg>
+              <img
+                src="/speakrr icon blue copy.png"
+                alt="Speakrr"
+                className="h-5 w-auto"
+              />
             </div>
           )}
 
@@ -123,13 +130,13 @@ export function Sidebar() {
           )}>
             <div className="h-8 w-8 bg-sidebar-accent flex items-center justify-center border border-border">
               <span className="font-mono text-[10px] font-medium text-sidebar-accent-foreground uppercase">
-                VD
+                EC
               </span>
             </div>
             {!isCollapsed && (
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-medium text-sidebar-accent-foreground truncate">
-                  Valentis Dental
+                  Eagle Creek Village Dental
                 </p>
                 <p className="text-[9px] text-text-muted uppercase tracking-wider truncate">
                   Business
@@ -144,15 +151,16 @@ export function Sidebar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "block bg-primary p-2.5 -mx-3 transition-opacity hover:opacity-90 text-center",
+              "block p-2.5 -mx-3 transition-opacity hover:opacity-90 text-center",
               isCollapsed && "mx-0 px-1"
             )}
+            style={{ backgroundColor: '#0000ff' }}
           >
             <p className={cn(
-              "text-[11px] font-medium text-primary-foreground",
+              "text-[11px] font-medium text-white",
               isCollapsed && "text-[8px] leading-tight"
             )}>
-              {isCollapsed ? "Valentis" : "A product by Valentis AI Labs"}
+              {isCollapsed ? "Speakrr" : "Speakrr by Valentis AI Labs"}
             </p>
           </a>
         </div>

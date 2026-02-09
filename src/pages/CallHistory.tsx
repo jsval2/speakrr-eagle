@@ -32,6 +32,7 @@ import {
   extractBookingDetails,
   getPhoneNumber,
   getCreatedAt,
+  getCallerName,
 } from "@/lib/conversationUtils";
 
 const mockCallHistory = [
@@ -202,7 +203,16 @@ const CallHistory = () => {
                       {formatRelativeTime(getCreatedAt(call))}
                     </TableCell>
                     <TableCell className="font-medium">
-                      {formatPhoneNumber(getPhoneNumber(call))}
+                      {getCallerName(call) ? (
+                        <div>
+                          <span>{getCallerName(call)}</span>
+                          <span className="text-muted-foreground text-xs ml-2">
+                            {formatPhoneNumber(getPhoneNumber(call))}
+                          </span>
+                        </div>
+                      ) : (
+                        formatPhoneNumber(getPhoneNumber(call))
+                      )}
                     </TableCell>
                     <TableCell className="font-mono text-xs text-muted-foreground">
                       {call.conversation_id.slice(0, 12)}...

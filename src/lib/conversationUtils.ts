@@ -199,6 +199,26 @@ export function formatRelativeTime(dateInput: string | number): string {
 }
 
 /**
+ * Get caller name from booking tool call parameters (if available)
+ */
+export function getCallerName(conversation: Conversation): string | null {
+  if (!conversation.transcript) return null;
+
+  const bookingCall = conversation.transcript
+    .flatMap((turn) => turn.tool_calls || [])
+    .find((call) => call.tool_name === 'book_appointment');
+
+  if (!bookingCall) return null;
+
+  try {
+    const params = JSON.parse(bookingCall.params_as_json);
+    return params.customer_name || null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Get phone number from conversation (handles different API response structures)
  */
 export function getPhoneNumber(conversation: Conversation): string {

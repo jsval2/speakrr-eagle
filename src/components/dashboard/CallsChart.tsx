@@ -38,12 +38,12 @@ export function CallsChart() {
               <linearGradient id="colorCalls" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="hsl(240, 100%, 50%)"
+                  stopColor="#77acb1"
                   stopOpacity={0.3}
                 />
                 <stop
                   offset="95%"
-                  stopColor="hsl(240, 100%, 50%)"
+                  stopColor="#77acb1"
                   stopOpacity={0}
                 />
               </linearGradient>
@@ -76,7 +76,7 @@ export function CallsChart() {
             <Area
               type="monotone"
               dataKey="calls"
-              stroke="hsl(240, 100%, 50%)"
+              stroke="#77acb1"
               strokeWidth={2}
               fill="url(#colorCalls)"
             />
